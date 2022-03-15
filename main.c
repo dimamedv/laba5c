@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <time.h>
+#include "libs/sortsAndGenerates.h"
 
 #define TIME_TEST(testCode, time) { \
     clock_t start_time = clock();   \
@@ -75,36 +76,14 @@ void checkTime(void(*sortFunc)(int *, size_t),
 }
 
 
-// Функции сортировки
-
-void selectionSort(int *a, size_t n) {
-
-}
-
-void insertionSort(int *a, size_t n) {
-
-}
-
-
-// Генерация тестовых последовательностей
-
-void generateRandomArray(int *a, size_t n) {
-
-}
-
-void generateOrderedArray(int *a, size_t n) {
-
-}
-
-void generateOrderedBackwards(int *a, size_t n) {
-
-}
-
 void timeExperiment() {
     SortFunc sorts[] = {
+            {bubbleSort, "bubbleSort"},
             {selectionSort, "selectionSort"},
             {insertionSort, "insertionSort"},
-
+            {combSort, "combSort"},
+            {shellSort, "shellSort"},
+            {digitalSort, " digitalSort"},
     };
     const unsigned FUNCS_N = ARRAY_SIZE(sorts);
 

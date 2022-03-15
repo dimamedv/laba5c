@@ -3,4 +3,4 @@ project(laba5c C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(laba5c main.c)
+add_executable(laba5c main.c libs/sortsAndGenerates.c libs/sortsAndGenerates.h)
