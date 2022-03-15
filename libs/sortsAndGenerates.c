@@ -2,22 +2,30 @@
 #include "stdlib.h"
 
 void swap(int *a, int *b) {
-    *a ^= *b;
-    *b ^= *a;
-    *a ^= *b;
+    if (a != b) {
+        *a ^= *b;
+        *b ^= *a;
+        *a ^= *b;
+    }
 }
 
 // Функции сортировки
 
 void bubbleSort(int *a, size_t n) {
     for (int i = 0; i < n - 1; i++)
-        for (int j = 0; j < n - i - 1; j++)
+        for (int j = 0; j < (n - 1) - i; j++)
             if (a[j] > a[j + 1])
                 swap(a + j, a + j + 1);
 }
 
 void selectionSort(int *a, size_t n) {
-
+    for (int i = 0; i < n - 1; i++) {
+        int minPos = i;
+        for (int j = i + 1; j < n; j++)
+            if (a[j] < a[minPos])
+                minPos = j;
+        swap(a + i, a + minPos);
+    }
 }
 
 void insertionSort(int *a, size_t n) {
