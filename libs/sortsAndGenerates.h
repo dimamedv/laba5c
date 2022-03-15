@@ -21,6 +21,19 @@ void shellSort(int *a, size_t n);
 void digitalSort(int *a, size_t size);
 
 
+long long bubbleSortCountCompares(int *a, size_t n);
+
+long long selectionSortCountCompares(int *a, size_t n);
+
+long long insertionSortCountCompares(int *a, size_t n);
+
+long long combSortCountCompares(int *a, size_t n);
+
+long long shellSortCountCompares(int *a, size_t n);
+
+long long digitalSortCountCompares(int *a, size_t size);
+
+
 
 // Генерация тестовых последовательностей
 
