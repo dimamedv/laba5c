@@ -31,11 +31,12 @@ void selectionSort(int *a, size_t n) {
 }
 
 void insertionSort(int *a, size_t n) {
-    for (int currentElementIndex = 1; currentElementIndex < n; currentElementIndex++) {
+    for (int currentElementIndex = 1;
+         currentElementIndex < n; currentElementIndex++) {
         int currentElement = a[currentElementIndex];
         int vacantPlaceIndex = currentElementIndex;
         while (vacantPlaceIndex > 0 && a[vacantPlaceIndex - 1] >
-        currentElement) {
+                                       currentElement) {
             a[vacantPlaceIndex] = a[vacantPlaceIndex - 1];
             vacantPlaceIndex--;
         }
@@ -59,11 +60,53 @@ void combSort(int *a, size_t n) {
 }
 
 void shellSort(int *a, size_t n) {
-
+    for (size_t gap = n / 2; gap > 0; gap /= 2) {
+        for (int i = (int) gap; i < n; i++) {
+            for (int j = i - gap; j >= 0 && a[j] > a[j + gap]; j -= gap) {
+                swap(a + j, a + j + gap);
+            }
+        }
+    }
 }
 
-void digitalSort(int *a, size_t n) {
+typedef struct number {
+    int number;
+    int key;
+} number;
 
+#define BYTE_SIZE 8
+#define SCAN_ONE_BYTE 255
+#define VARIANTS_FOR_ONE_BYTE 256
+
+void digitalSort(int *a, size_t size) {
+    number numbers[size];
+    size_t *countKeys = calloc(VARIANTS_FOR_ONE_BYTE, sizeof(size_t));
+
+    for (int currentShift = 0;
+         currentShift < sizeof(int) * 8; currentShift += BYTE_SIZE) {
+        for (int j = 0; j < size; ++j) {
+            int key = (a[j] >> currentShift) & SCAN_ONE_BYTE;
+            numbers[j].number = a[j];
+            numbers[j].key = key;
+            countKeys[key]++;
+        }
+
+        size_t keyStartIndex[VARIANTS_FOR_ONE_BYTE];
+        keyStartIndex[0] = 0;
+
+        for (int j = 1; j < VARIANTS_FOR_ONE_BYTE; ++j)
+            keyStartIndex[j] = keyStartIndex[j - 1] + countKeys[j - 1];
+
+        for (int j = 0; j < size; ++j) {
+            size_t iWrite = keyStartIndex[numbers[j].key]++;
+            a[iWrite] = numbers[j].number;
+        }
+
+        for (int j = 0; j < VARIANTS_FOR_ONE_BYTE; ++j)
+            countKeys[j] = 0;
+    }
+
+    free(countKeys);
 }
 
 

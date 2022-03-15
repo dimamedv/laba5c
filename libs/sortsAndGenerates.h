@@ -18,7 +18,7 @@ void combSort(int *a, size_t n);
 
 void shellSort(int *a, size_t n);
 
-void digitalSort(int *a, size_t n);
+void digitalSort(int *a, size_t size);
 
 
 
