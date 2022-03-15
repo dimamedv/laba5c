@@ -1,6 +1,8 @@
 #include "sortsAndGenerates.h"
 #include "stdlib.h"
 
+#define FI 1.24733
+
 void swap(int *a, int *b) {
     if (a != b) {
         *a ^= *b;
@@ -29,11 +31,31 @@ void selectionSort(int *a, size_t n) {
 }
 
 void insertionSort(int *a, size_t n) {
-
+    for (int currentElementIndex = 1; currentElementIndex < n; currentElementIndex++) {
+        int currentElement = a[currentElementIndex];
+        int vacantPlaceIndex = currentElementIndex;
+        while (vacantPlaceIndex > 0 && a[vacantPlaceIndex - 1] >
+        currentElement) {
+            a[vacantPlaceIndex] = a[vacantPlaceIndex - 1];
+            vacantPlaceIndex--;
+        }
+        a[vacantPlaceIndex] = currentElement;
+    }
 }
 
 void combSort(int *a, size_t n) {
-
+    size_t step = n;
+    bool swapped = true;
+    while (step > 1 || swapped) {
+        if (step > 1)
+            step /= FI;
+        swapped = 0;
+        for (size_t i = 0, j = i + step; j < n; ++i, ++j)
+            if (a[i] > a[j]) {
+                swap(a + i, a + j);
+                swapped = 1;
+            }
+    }
 }
 
 void shellSort(int *a, size_t n) {
